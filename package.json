@@ -1,0 +1,23 @@
+{
+  "name": "webusb",
+  "version": "0.0.1",
+  "description": "Working with WebUSB Demos",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hackabletype/webUSB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hackabletype/webUSB/issues"
+  },
+  "homepage": "https://github.com/hackabletype/webUSB#readme",
+  "dependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1"
+  }
+}
