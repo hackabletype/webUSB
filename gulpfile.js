@@ -6,6 +6,7 @@ gulp.task('browser_serve', () => {
   browser_sync.init({
     server: {
       baseDir: 'frontend',
+      index: 'RGB_LED.htm',
     },
   });
 });

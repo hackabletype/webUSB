@@ -4,6 +4,7 @@
   "description": "Working with WebUSB Demos",
   "main": "gulpfile.js",
   "scripts": {
+    "start": "gulp browser_serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

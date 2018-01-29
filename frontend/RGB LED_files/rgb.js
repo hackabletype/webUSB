@@ -1,12 +1,10 @@
-(function() {
-  'use strict';
-
-  document.addEventListener('DOMContentLoaded', event => {
-    let connectButton = document.querySelector("#connect");
-    let statusDisplay = document.querySelector('#status');
-    let redSlider = document.querySelector('#red');
-    let greenSlider = document.querySelector('#green');
-    let blueSlider = document.querySelector('#blue');
+(function () {
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const connectButton = document.querySelector('#connect');
+    const statusDisplay = document.querySelector('#status');
+    const redSlider = document.querySelector('#red');
+    const greenSlider = document.querySelector('#green');
+    const blueSlider = document.querySelector('#blue');
     let port;
 
     function connect() {
@@ -14,14 +12,14 @@
         statusDisplay.textContent = '';
         connectButton.textContent = 'Disconnect';
 
-        port.onReceive = data => {
-          let textDecoder = new TextDecoder();
+        port.onReceive = (data) => {
+          const textDecoder = new TextDecoder();
           console.log(textDecoder.decode(data));
-        }
-        port.onReceiveError = error => {
+        };
+        port.onReceiveError = (error) => {
           console.error(error);
         };
-      }, error => {
+      }, (error) => {
         statusDisplay.textContent = error;
       });
     }
@@ -31,35 +29,35 @@
         return;
       }
 
-      let view = new Uint8Array(3);
+      const view = new Uint8Array(3);
       view[0] = parseInt(redSlider.value);
       view[1] = parseInt(greenSlider.value);
       view[2] = parseInt(blueSlider.value);
       port.send(view);
-    };
+    }
 
     redSlider.addEventListener('input', onUpdate);
     greenSlider.addEventListener('input', onUpdate);
     blueSlider.addEventListener('input', onUpdate);
 
-    connectButton.addEventListener('click', function() {
+    connectButton.addEventListener('click', () => {
       if (port) {
         port.disconnect();
         connectButton.textContent = 'Connect';
         statusDisplay.textContent = '';
         port = null;
       } else {
-        serial.requestPort().then(selectedPort => {
+        serial.requestPort().then((selectedPort) => {
           port = selectedPort;
           connect();
-        }).catch(error => {
+        }).catch((error) => {
           statusDisplay.textContent = error;
         });
       }
     });
 
-    serial.getPorts().then(ports => {
-      if (ports.length == 0) {
+    serial.getPorts().then((ports) => {
+      if (ports.length === 0) {
         statusDisplay.textContent = 'No device found.';
       } else {
         statusDisplay.textContent = 'Connecting...';
@@ -68,4 +66,4 @@
       }
     });
   });
-})();
+}());
