@@ -2,9 +2,7 @@
   document.addEventListener('DOMContentLoaded', (event) => {
     const connectButton = document.querySelector('#connect');
     const statusDisplay = document.querySelector('#status');
-    const redSlider = document.querySelector('#red');
-    const greenSlider = document.querySelector('#green');
-    const blueSlider = document.querySelector('#blue');
+    const picker = document.querySelector('#picker');
     let port;
 
     function connect() {
@@ -24,21 +22,29 @@
       });
     }
 
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
     function onUpdate() {
       if (!port) {
         return;
       }
 
+      const rgb = hexToRgb(picker.value)
       const view = new Uint8Array(3);
-      view[0] = parseInt(redSlider.value);
-      view[1] = parseInt(greenSlider.value);
-      view[2] = parseInt(blueSlider.value);
+      view[0] = 255 - rgb['r'];
+      view[1] = 255 - rgb['g'];
+      view[2] = 255 - rgb['b'];
       port.send(view);
     }
 
-    redSlider.addEventListener('input', onUpdate);
-    greenSlider.addEventListener('input', onUpdate);
-    blueSlider.addEventListener('input', onUpdate);
+    picker.addEventListener('input', onUpdate);
 
     connectButton.addEventListener('click', () => {
       if (port) {
